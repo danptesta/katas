@@ -14,6 +14,7 @@ public class StackTest {
 		stack = new Stack(2);
 	}
 	
+	
 	@Test
 	public void newStackShouldBeEmpty() {
 		assertThat(stack.size(), equalTo(0));
