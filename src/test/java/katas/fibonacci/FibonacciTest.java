@@ -1,4 +1,4 @@
-package kata.fibonacci;
+package katas.fibonacci;
 
 import static katas.fibonacci.Fibonacci.fibonacci;
 import static org.hamcrest.CoreMatchers.equalTo;
@@ -10,8 +10,8 @@ import org.junit.runners.Suite;
 
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
-    kata.fibonacci.FibonacciTest.DegenerateTests.class,
-    kata.fibonacci.FibonacciTest.GoldTests.class
+    katas.fibonacci.FibonacciTest.DegenerateTests.class,
+    katas.fibonacci.FibonacciTest.GoldTests.class
 })
 public class FibonacciTest {
 
