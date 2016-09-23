@@ -27,8 +27,8 @@ public class FibonacciTest {
             assertThat(fibonacci(1), equalTo(1));
         }
 
-        @Test(expected=java.lang.IllegalArgumentException.class)
-        public void negativeValue_shouldThrowIllegalArgumentException() throws Exception {
+        @Test(expected=katas.fibonacci.NegativeValue.class)
+        public void whenNegativeValueIsGiven_shouldThrowNativeValue() throws Exception {
             fibonacci(-1);
         }
     }

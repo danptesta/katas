@@ -29,13 +29,13 @@ public class WrapperTest {
 		    assertThat(wrap("this", 10), equalTo("this"));
 		}
         
-        @Test(expected=java.lang.IllegalArgumentException.class)
-        public void nullString_shouldThrowIllegalArgumentException() throws Exception {
+        @Test(expected=java.lang.NullPointerException.class)
+        public void whenNullStringGiven_shouldThrowNullPointerException() throws Exception {
             wrap(null, 1);
         }
         
-        @Test(expected=java.lang.IllegalArgumentException.class)
-        public void colLessThanOne_shouldThrowIllegalArgumentException() throws Exception {
+        @Test(expected=katas.wrapper.Wrapper.ColumnTooSmall.class)
+        public void WhenColLessThanOne_shouldThrowColumnTooSmall() throws Exception {
             wrap("this", 0);
         }
 	}

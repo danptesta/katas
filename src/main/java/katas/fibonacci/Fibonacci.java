@@ -1,9 +1,10 @@
 package katas.fibonacci;
 
 public class Fibonacci {
+    
     public static int fibonacci(int n) {
         if(n < 0)
-            throw new IllegalArgumentException("n cannot be negative");
+            throw new NegativeValue();
         
         if(n == 0)
             return 0;

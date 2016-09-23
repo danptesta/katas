@@ -1,27 +1,30 @@
 package katas.stack;
 
-public class Stack {
+public interface Stack {
 
-	private int size = 0;
-	private int elements[];
-	
-	public Stack(int capacity) {
-		this.elements = new int[capacity];
-	}
-	
-	public int size() {
-		return size;
-	}
-	
-	public void push(int element) {
-		if(size == elements.length)
-			throw new Overflow();
-		this.elements[size++] = element;
-	}
-	
-	public int pop() {
-		if(size == 0)
-			throw new Underflow();
-		return elements[--size];
-	}
+    boolean isEmpty();
+    
+    boolean isFull();
+    
+    int size();
+
+    void push(int element);
+
+    int pop();
+    
+    int top();
+    
+    Integer find(int element);
+
+    public class Overflow extends RuntimeException {
+    }
+
+    public class Underflow extends RuntimeException {
+    }
+
+    public class IllegalCapacity extends RuntimeException {
+    }
+    
+    public class Empty extends RuntimeException {
+    }
 }

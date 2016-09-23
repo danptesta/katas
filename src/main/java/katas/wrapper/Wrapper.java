@@ -10,16 +10,13 @@ public class Wrapper {
     private Wrapper(int col) {
         
         if(col < 1)
-            throw new IllegalArgumentException("col cannot be < 1");
+            throw new ColumnTooSmall();
 
         this.col = col;
     }
     
     private String wrap(String s) {
         
-        if(s == null)
-            throw new IllegalArgumentException("s cannot be null");
-                
         if(s.length() <= col)
             return s;
         
@@ -36,4 +33,6 @@ public class Wrapper {
     private String breakLine(String s, int pos, int gap) {
         return s.substring(0, pos) + "\n" + wrap(s.substring(pos + gap), col);
     }
+    
+    public class ColumnTooSmall extends RuntimeException {}
 }
