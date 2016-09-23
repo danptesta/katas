@@ -72,6 +72,11 @@ public class StackTest {
         }
         
         @Test
+        public void isFullShouldBeTrue() {
+            assertThat(stack.isFull(), equalTo(true));
+        }
+        
+        @Test
         public void sizeShouldBeZero() {
             assertThat(stack.size(), equalTo(0));
         }
