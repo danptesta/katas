@@ -11,7 +11,7 @@ import java.util.List;
 import org.junit.Assert;
 import org.junit.Test;
 
-public class QuickSortTest {
+public class SortTest2 {
     private List<Integer> intList(Integer... ints) {
         return Arrays.asList(ints);
     }

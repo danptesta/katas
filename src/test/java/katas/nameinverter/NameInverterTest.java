@@ -13,6 +13,7 @@ public class NameInverterTest {
     public void setup() {
         nameInverter = new NameInverter();
     }
+    
     private void assertInverted(String original, String inverted) {
         assertThat(nameInverter.invertName(original), equalTo(inverted));
     }
