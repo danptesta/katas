@@ -40,12 +40,12 @@ public class PrimeFactorsTest3 {
      * transform: nil -> constant
      * test: primeFactors(2)
      * transform: constant -> scalar
-     * transform: unconditional -> if
+     * transform: split unconditional -> if
      * test: primeFactors(3)
      * refactor: clean up test code
      * test: primeFactors(4) 
-     * transform: unconditional -> if
-     * transform: unconditional -> if
+     * transform: split unconditional -> if
+     * transform: split unconditional -> if
      * refactor:  move last if block
      * test: primeFactors(5)
      * test: primeFactors(6)

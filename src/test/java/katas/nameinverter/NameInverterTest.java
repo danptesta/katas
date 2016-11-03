@@ -52,6 +52,7 @@ public class NameInverterTest {
     public void ignoreHonorific() {
         assertInverted("Mr. First Last", "Last, First");
         assertInverted("Mrs. First Last", "Last, First");
+        assertInverted("Mrs. Last", "Last");
     }
     
     @Test

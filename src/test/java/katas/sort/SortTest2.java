@@ -1,6 +1,5 @@
 package katas.sort;
 
-import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
@@ -8,7 +7,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import org.junit.Assert;
+import org.hamcrest.CoreMatchers;
 import org.junit.Test;
 
 public class SortTest2 {
@@ -17,7 +16,7 @@ public class SortTest2 {
     }
 
     private void assertSorted(List<Integer> unsorted, List<Integer> sorted) {
-        assertThat(sort(unsorted), is(sorted));
+        assertThat(sort(unsorted), CoreMatchers.equalTo(sorted));
     }
 
     private void sortBigList(int n) {
@@ -41,7 +40,7 @@ public class SortTest2 {
         assertSorted(intList(4,6,5), intList(4,5,6));
         assertSorted(intList(5,4,3), intList(3,4,5));
         assertSorted(intList(6,5,5,7), intList(5,5,6,7));
-        sortBigList(50000);
+        sortBigList(500);
     }
 
     /*
