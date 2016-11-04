@@ -1,6 +1,7 @@
 package katas.tictactoe;
 
 import static katas.tictactoe.Board.Column.LEFT;
+import static katas.tictactoe.Board.Column.RIGHT;
 import static katas.tictactoe.Player.O;
 import static katas.tictactoe.Player.X;
 import static katas.tictactoe.Board.Row.TOP;
@@ -8,6 +9,7 @@ import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.Assert.assertThat;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
@@ -51,6 +53,11 @@ public class TicTacToeTest {
             g.play(X, TOP, LEFT);
             g.play(O, TOP, LEFT);
         }
+        
+        @Test
+        public void newGame_hasNoWinner() {
+            assertThat(g.getWinner(), equalTo(null));
+        }
     }
 
     public static class GoldTests {
@@ -63,16 +70,44 @@ public class TicTacToeTest {
 
         @Test
         public void playValidSquare_returnsBoardWithSquareFilled() {
-            Board board = new Board(new Player[][] {
+            g.play(X, TOP, LEFT);
+            g.play(O, TOP, Column.MIDDLE);
+            assertThat(g.showBoard(), equalTo(new Board(new Player[][] {
                 {X, O, null},
                 {null, null, null},
                 {null, null, null}
-            });
-            
+            })));
+        }
+        
+        @Test
+        public void XWinsRow_returnsWinnerX() {
             g.play(X, TOP, LEFT);
-            g.play(O, TOP, Column.MIDDLE);
-            
-            assertThat(g.showBoard(), equalTo(board));
+            g.play(O, Row.MIDDLE, LEFT);
+            g.play(X, TOP, Column.MIDDLE);
+            g.play(O, Row.MIDDLE, Column.MIDDLE);
+            g.play(X, TOP, RIGHT);            
+            assertThat(g.getWinner(), equalTo(X));
+        }
+        
+        @Test
+        public void OWinsRow_returnsWinnerO() {
+            g.play(X, TOP, LEFT);
+            g.play(O, Row.MIDDLE, LEFT);
+            g.play(X, TOP, Column.MIDDLE);
+            g.play(O, Row.MIDDLE, Column.MIDDLE);
+            g.play(X, Row.BOTTOM, RIGHT);
+            g.play(O, Row.MIDDLE, RIGHT);
+            assertThat(g.getWinner(), equalTo(O));
+        }
+        
+        @Test(expected=katas.tictactoe.Game.GameOver.class)
+        public void playAfterGameWon_throwsGameOver() {
+            g.play(X, TOP, LEFT);
+            g.play(O, Row.MIDDLE, LEFT);
+            g.play(X, TOP, Column.MIDDLE);
+            g.play(O, Row.MIDDLE, Column.MIDDLE);
+            g.play(X, TOP, RIGHT);            
+            g.play(O, Row.MIDDLE, RIGHT);
         }
     }
 }

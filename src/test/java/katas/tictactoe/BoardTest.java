@@ -5,14 +5,18 @@ import static katas.tictactoe.Player.X;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.Assert.assertThat;
 
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
+import katas.tictactoe.Board.Column;
+import katas.tictactoe.Board.Row;
+
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
     BoardTest.DegenerateTests.class,
-    BoardTest.GoldTests.class
+    BoardTest.WinnerTests.class
 })
 
 public class BoardTest {
@@ -35,7 +39,37 @@ public class BoardTest {
         }
     }
     
-    public static class GoldTests {
+    public static class PlaySquareTests {
+        @Test(expected=katas.tictactoe.Board.SauareOccupied.class)
+        public void playOccupiedSquare_throwsSquareOccupied() {
+            Board b = new Board();
+            b.playSquare(X, Row.TOP, Column.LEFT);
+            b.playSquare(X, Row.TOP, Column.LEFT);            
+        }
+        
+        @Test
+        public void playSquare() {
+            assertPlaySquare(new Board(new Player[][] {
+                {X, null, null},
+                {null, null, null},
+                {null, null, null}
+            }), Row.TOP, Column.LEFT, Player.X);
+
+            assertPlaySquare(new Board(new Player[][] {
+                {null, null, null},
+                {null, null, null},
+                {null, null, O}
+            }), Row.BOTTOM, Column.RIGHT, Player.O);
+        }
+
+        private void assertPlaySquare(Board expected, Row row, Column column, Player player) {
+            Board actual = new Board();
+            actual.playSquare(player, row, column);
+            Assert.assertEquals(expected, actual);
+        }
+    }
+    
+    public static class WinnerTests {
         private void assertWinner(Board board) {
             assertThat(board.hasWinner(), equalTo(true));
         }
