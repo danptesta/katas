@@ -20,6 +20,11 @@
           <targetTests>
             <param>katas.*</param>
           </targetTests>
+          <excludedMethods>
+              <param>hashCode</param>
+              <param>equals</param>
+              <param>toString</param>
+          </excludedMethods>
         </configuration>
       </plugin>
     </plugins>
