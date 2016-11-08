@@ -80,7 +80,7 @@ public class TicTacToeTest {
         }
         
         @Test
-        public void XWinsRow_returnsWinnerX() {
+        public void XWins_returnsWinnerX() {
             g.play(X, TOP, LEFT);
             g.play(O, Row.MIDDLE, LEFT);
             g.play(X, TOP, Column.MIDDLE);
@@ -90,7 +90,7 @@ public class TicTacToeTest {
         }
         
         @Test
-        public void OWinsRow_returnsWinnerO() {
+        public void OWins_returnsWinnerO() {
             g.play(X, TOP, LEFT);
             g.play(O, Row.MIDDLE, LEFT);
             g.play(X, TOP, Column.MIDDLE);

@@ -1,10 +1,9 @@
 package katas.tictactoe;
 
+import static katas.tictactoe.Board.Row;
+import static katas.tictactoe.Board.Column;
+
 public class Game {    
-    public class GameOver extends RuntimeException {
-
-    }
-
     private Board board = new Board();
 
     public Board showBoard() {
@@ -14,7 +13,7 @@ public class Game {
     Player lastPlayer = null;
     private Player winner = null;
 
-    public void play(Player player, Board.Row row, Board.Column column) {
+    public void play(Player player, Row row, Column column) {
         assertGameNotOver();
         assertPlayingInTurn(player);
         board.playSquare(player, row, column);
@@ -49,11 +48,15 @@ public class Game {
         return lastPlayer != null;
     }
 
+    public Player getWinner() {
+        return winner;
+    }
+
     public class OutOfTurn extends RuntimeException {
         private static final long serialVersionUID = 1L;
     }
 
-    public Player getWinner() {
-        return winner;
+    public class GameOver extends RuntimeException {
+        private static final long serialVersionUID = 1L;
     }
 }
