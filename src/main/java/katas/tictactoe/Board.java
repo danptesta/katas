@@ -2,9 +2,6 @@ package katas.tictactoe;
 
 import java.util.Arrays;
 
-import katas.tictactoe.Board.Column;
-import katas.tictactoe.Board.Row;
-
 public class Board {
     public static enum Column {
         LEFT(0), MIDDLE(1), RIGHT(2);
@@ -24,47 +21,47 @@ public class Board {
         }
     }
 
-    private Player[][] grid;
+    private Marker[][] grid;
     
     public Board() {
-        this(new Player[3][3]);
+        this(new Marker[3][3]);
     }
     
-    public Board(Player[][] grid) {
+    public Board(Marker[][] grid) {
         assertGrid(grid);
         this.grid = grid;
     }
 
-    private void assertGrid(Player[][] grid) {
+    private void assertGrid(Marker[][] grid) {
         assertRows(grid);
         assertColumns(grid);
     }
 
-    private void assertColumns(Player[][] grid) {
-        for (Player[] row : grid)
+    private void assertColumns(Marker[][] grid) {
+        for (Marker[] row : grid)
             if (row.length != 3)
                 throw new IllegalArgumentException("invalid number of columns in grid");
     }
 
-    private void assertRows(Player[][] grid) {
+    private void assertRows(Marker[][] grid) {
         if (grid.length != 3)
             throw new IllegalArgumentException("invalid number of rows in grid");
     }
 
-    void playSquare(Player player, Row row, Column column) {
-        assertSquareVacant(row, column);
-        occupySquare(player, row, column);
+    void play(Marker marker, Square square) {
+        assertSquareEmpty(square);
+        fillSquare(marker, square);
     }
 
-    private void occupySquare(Player player, Row row, Column column) {
-        grid[row.index][column.index] = player;
+    private void assertSquareEmpty(Square square) {
+        if (grid[square.getRow().index][square.getColumn().index] != null)
+            throw new SauareFilled();
     }
 
-    private void assertSquareVacant(Row row, Column column) {
-        if (grid[row.index][column.index] != null)
-            throw new SauareOccupied();
+    private void fillSquare(Marker marker, Square square) {
+        grid[square.getRow().index][square.getColumn().index] = marker;
     }
-
+    
     public boolean hasWinner() {
         if (hasRowWinner())
             return true;
@@ -93,13 +90,13 @@ public class Board {
     }
 
     private boolean hasRowWinner() {
-        for (Player[] row : grid)
+        for (Marker[] row : grid)
             if (isRowWinner(row))
                 return true;
         return false;
     }
 
-    private boolean isRowWinner(Player[] row) {
+    private boolean isRowWinner(Marker[] row) {
         return row[0] != null && row[0] == row[1] && row[0] == row[2];
     }
 
@@ -136,7 +133,24 @@ public class Board {
         return true;
     }
 
-    public class SauareOccupied extends RuntimeException {
+    public class SauareFilled extends RuntimeException {
         private static final long serialVersionUID = 1L;
+    }
+
+    @Override
+    public String toString() {
+        return "Board [grid=" + Arrays.deepToString(grid) + "]";
+    }
+
+    public Marker getValue(Square square) {
+        return grid[square.getRow().index][square.getColumn().index];
+    }
+
+    public Boolean isFull() {
+        for(Marker[] row : grid) 
+            for(int i=0; i<3; i++)
+                if(row[i] == null)
+                    return false;
+        return true;
     }
 }

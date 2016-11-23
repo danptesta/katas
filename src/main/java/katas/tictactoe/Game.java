@@ -1,62 +1,45 @@
 package katas.tictactoe;
 
-import static katas.tictactoe.Board.Row;
-import static katas.tictactoe.Board.Column;
-
 public class Game {    
     private Board board = new Board();
+    private Marker lastPlayer = null;
+    private Marker winner = null;
 
     public Board showBoard() {
         return board;
     }
-    
-    Player lastPlayer = null;
-    private Player winner = null;
 
-    public void play(Player player, Row row, Column column) {
+    public void play(Square square) {
         assertGameNotOver();
-        assertPlayingInTurn(player);
-        board.playSquare(player, row, column);
-        lastPlayer = player;
-        checkWinner(player);
+        Marker marker = nextMarker();
+        board.play(marker, square);
+        lastPlayer = marker;
+        checkWinner(marker);
     }
 
     private void assertGameNotOver() {
-        if (winner != null)
+        if (getWinner() != null)
             throw new GameOver();
     }
+    
+    public Marker nextMarker() {
+        return (lastPlayer != Marker.X) ? Marker.X : Marker.O;
+    }
 
-    private void checkWinner(Player player) {
+    private void checkWinner(Marker player) {
         if (board.hasWinner())
             winner = player;
     }
 
-    private void assertPlayingInTurn(Player player) {
-        if (playerOStarting(player) || samePlayerPlayingConsecutively(player))
-            throw new OutOfTurn();
-    }
-
-    private boolean samePlayerPlayingConsecutively(Player player) {
-        return player == lastPlayer;
-    }
-
-    private boolean playerOStarting(Player player) {
-        return !gameStarted() && player == Player.O;
-    }
-
-    private boolean gameStarted() {
-        return lastPlayer != null;
-    }
-
-    public Player getWinner() {
+    public Marker getWinner() {
         return winner;
-    }
-
-    public class OutOfTurn extends RuntimeException {
-        private static final long serialVersionUID = 1L;
     }
 
     public class GameOver extends RuntimeException {
         private static final long serialVersionUID = 1L;
+    }
+
+    public Boolean isOver() {
+        return (getWinner() != null || board.isFull());
     }
 }

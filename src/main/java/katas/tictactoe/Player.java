@@ -1,14 +1,18 @@
 package katas.tictactoe;
 
-public enum Player {
-    X("X"), O("O");
-    
-    String value;
-    Player(String value) {
-        this.value = value;
+public class Player {
+    Marker marker;
+    boolean played = false;
+
+    public Player(Marker marker) {
+        this.marker = marker;
+    }
+
+    public Marker getMarker() {
+        return this.marker;
     }
     
-    public String toString() {
-        return value.toString();
+    public void play(Board board) {
+        
     }
 }
