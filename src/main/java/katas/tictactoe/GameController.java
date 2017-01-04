@@ -49,14 +49,14 @@ public class GameController {
         controller.playGame();
     }
 
-    private void printResults() {
+    private void printWinner() {
         printBoard();
         System.out.println("");
         System.out.println("=======================");
         if(game.getWinner() != null)
             System.out.printf("Game Over.  %s is the winner!\n", game.getWinner());
         else
-            System.out.println("Game Over.  No winner.");
+            System.out.println("Game Over.  Game is a draw (no winner).");
     }
 
     private void playGame() {
@@ -67,7 +67,7 @@ public class GameController {
                 System.out.println("\nSorry, that square is already taken.  Please try again.");
             }
         } while(!game.isOver());
-        printResults();
+        printWinner();
     }
 
     private void playTurn() {
